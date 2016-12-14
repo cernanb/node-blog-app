@@ -6,6 +6,10 @@ const bodyParser    = require('body-parser')
 const port          = process.env.PORT || 8080
 const router        = express.Router()
 const postRouter    = require('./app/controllers/post.controller')
+const mongoose      = require('mongoose')
+mongoose.connect('mongodb://localhost/blogApp')
+
+const db = mongoose.connection
 
 const accessLogStream = fs.createWriteStream(__dirname + '/access.log', { flags: 'a' })
 
@@ -18,6 +22,7 @@ app.use(morgan('combined', { stream: accessLogStream }))
 
 
 router.get('/', (req, res) => {
+    console.log(db)
     res.render('index', { header: 'index' })
 })
 

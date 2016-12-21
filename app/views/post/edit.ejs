@@ -1,7 +1,25 @@
-<form action="/posts/<%= post.id %>" method="put">
+<form id="post-form" action="/posts/<%= post.id %>" method="POST" data-id="<%= post.id %>">
   <label for="Title">Title:</label><br>
   <input type="text" name="title" value="<%= post.title %>"><br>
   <label for="Description">Description:</label><br>
   <textarea name="description"><%= post.description %></textarea><br>
-  <input type="submit" value="create post">
+  <input type="submit" value="Edit post">
 </form>
+
+<script type="text/javascript">
+  const postForm = document.getElementById('post-form')
+  postForm.addEventListener('submit', (event) => {
+    event.preventDefault()
+    const title = document.getElementsByTagName("input")[0].value
+    const description = document.getElementsByTagName("textarea")[0].value
+    const req = {
+      method: 'put',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        title: title
+        description: description
+      })
+    }
+    fetch(`/posts/${postForm.dataset.id}`, req)
+  })
+</script>

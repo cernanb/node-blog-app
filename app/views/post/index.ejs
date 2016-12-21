@@ -1,1 +1,7 @@
 <h1>All the posts go here</h1>
+<% posts.map((post) => { %>
+  <a href="/posts/<%= post.id %>"><%= post.title %></a>
+  <p><%= post.description %></p>
+  <a href="/posts/<%= post.id %>/edit">Edit</a> <br>
+  <a href="/posts/<%= post.id %>?_method=DELETE">Delete</a> <br>
+<% }) %>

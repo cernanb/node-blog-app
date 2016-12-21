@@ -10,16 +10,17 @@
   const postForm = document.getElementById('post-form')
   postForm.addEventListener('submit', (event) => {
     event.preventDefault()
-    const title = document.getElementsByTagName("input")[0].value
-    const description = document.getElementsByTagName("textarea")[0].value
-    const req = {
-      method: 'put',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        title: title
-        description: description
-      })
-    }
-    fetch(`/posts/${postForm.dataset.id}`, req)
+    // const title = document.getElementsByTagName("input")[0].value
+    // const description = document.getElementsByTagName("textarea")[0].value
+    // let req = {
+    //   method: 'put',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify({
+    //     title: title
+    //     description: description
+    //   })
+    // }
+    // console.log(req)
+    // fetch(`/posts/${postForm.dataset.id}`, req)
   })
 </script>

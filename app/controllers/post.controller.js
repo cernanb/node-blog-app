@@ -5,6 +5,17 @@ const Post        = require('../models/post')
 
 // postRouter.params('id', req, res, next, id)
 
+postRouter.param('id', (req, res, next, id) => {
+    if ( req.query._method == 'PUT' ) {
+        return next()
+    }
+    Post.findById(id)
+        .then((post) => {
+            req.post = post
+            next()
+        })
+})
+
 postRouter
     .get('/', (req, res) => {
         Post.find((err, posts) => {
@@ -18,15 +29,10 @@ postRouter
         res.render('post/new', { header: 'post new' })
     })
     .get('/:id', (req, res) => {
-        Post.findById(req.params.id, (err, post) => {
-            if (err) {
-                console.log()
-            }
-            res.render('post/show', {
-                header: 'post show', post
-            })
+        const post = req.post
+        res.render('post/show', {
+            header: 'post show', post
         })
-
     })
     .post('/', (req, res) => {
         Post.create(req.body)
@@ -38,20 +44,15 @@ postRouter
             })
     })
     .get('/:id/edit', (req, res) => {
-        Post.findById(req.params.id, (err, post) => {
-            if (err) throw err
-            res.render('post/edit', {
-                header: 'post edit', post
-            })
+        const post = req.post
+        res.render('post/edit', {
+            header: 'post edit', post
         })
     })
     .put('/:id', (req, res) => {
-        Post.update({ _id: req.query.id }, {title: req.query.title, description: req.query.description}, (err, post) => {
+        Post.findByIdAndUpdate(req.params.id, {title: req.body.title, description: req.body.description}, (err, post) => {
             if (err) return console.log(err)
-            Post.findById(req.query.id, (err, post) => {
-                if (err) console.log(err)
-                res.redirect(`/posts/${post.id}`)
-            })
+            res.redirect(`/posts/${post.id}`)
         })
     })
     .delete('/:id', (req, res) => {

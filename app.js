@@ -21,18 +21,6 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(morgan('combined', { stream: accessLogStream }))
 app.use(methodOverride('_method'))
 
-router.use( function( req, res, next ) {
-    if ( req.query._method == 'DELETE' ) {
-        req.method = 'DELETE';
-        req.url = req.path;
-    }
-    // } else if ( req.query._method === 'PUT' ) {
-    //     console.log("params: ",req.query)
-    //     req.method = 'PUT';
-    //     req.url = req.path;
-    // }
-    next();
-})
 
 router.get('/', (req, res) => {
     console.log(db)

@@ -3,5 +3,7 @@
   <a href="/posts/<%= post.id %>"><%= post.title %></a>
   <p><%= post.description %></p>
   <a href="/posts/<%= post.id %>/edit">Edit</a> <br>
-  <a href="/posts/<%= post.id %>?_method=DELETE">Delete</a> <br>
+  <form method="POST" action="/posts/<%= post.id %>?_method=DELETE">
+    <button type="submit">Delete</button>
+  </form>
 <% }) %>

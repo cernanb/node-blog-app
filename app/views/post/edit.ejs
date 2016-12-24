@@ -1,4 +1,4 @@
-<form id="post-form" action="/posts/<%= post.id %>" method="POST" data-id="<%= post.id %>">
+<form action="/posts/<%= post.id %>?_method=PUT" method="POST" data-id="<%= post.id %>">
   <label for="Title">Title:</label><br>
   <input type="text" name="title" value="<%= post.title %>"><br>
   <label for="Description">Description:</label><br>
@@ -6,7 +6,7 @@
   <input type="submit" value="Edit post">
 </form>
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
   const postForm = document.getElementById('post-form')
   postForm.addEventListener('submit', (event) => {
     event.preventDefault()
@@ -23,4 +23,4 @@
     // console.log(req)
     // fetch(`/posts/${postForm.dataset.id}`, req)
   })
-</script>
+</script> -->
